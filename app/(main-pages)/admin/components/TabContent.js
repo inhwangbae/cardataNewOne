@@ -11,6 +11,9 @@ import Profit from "./Profit";
 import Owners from "./Owners";
 import Documents from "./Documents";
 import CustomerAssignments from "./CustomerAssignments";
+import PaymentRequests from "./PaymentRequests";
+import PaymentApprovals from "./PaymentApprovals";
+import PaymentTransactions from "./PaymentTransactions";
 
 export default function TabContent({ session, language,dictionary }) {
   const [activeTab, setActiveTab] = useState("role");
@@ -53,6 +56,15 @@ export default function TabContent({ session, language,dictionary }) {
         </li>
         <li className={activeTab === "assignments" ? "uk-active" : ""}>
           <CustomerAssignments session={session} language={language} />
+        </li>
+        <li className={activeTab === "payment-requests" ? "uk-active" : ""}>
+          <PaymentRequests session={session} language={language} />
+        </li>
+        <li className={activeTab === "payment-approvals" ? "uk-active" : ""}>
+          <PaymentApprovals session={session} language={language} />
+        </li>
+        <li className={activeTab === "payment-transactions" ? "uk-active" : ""}>
+          <PaymentTransactions session={session} language={language} />
         </li>
         <li className={activeTab === "answer" ? "uk-active" : ""}>
           <Answer session={session} language={language} />

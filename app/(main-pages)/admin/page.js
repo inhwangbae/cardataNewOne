@@ -28,6 +28,9 @@ export default async function Page() {
             <li><a href="#"> 소유주</a></li>
             <li><a href="#"> 문서관리</a></li>
             <li><a href="#"> 고객할당</a></li>
+            <li><a href="#"> 결제요청</a></li>
+            <li><a href="#"> 결제승인</a></li>
+            <li><a href="#"> 입출금</a></li>
             <li><a href="#"> 답변</a></li>
             <li><a href="#"> 상품목록</a></li>
             <li><a href="#"> 채팅</a></li>
