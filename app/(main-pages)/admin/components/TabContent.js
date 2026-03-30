@@ -5,6 +5,16 @@ import Answer from "./Answer";
 import Role from "./Role";
 import Products from "./Products";
 import StreamChat from "./StreamChat";
+import Staff from "./Staff";
+import Transactions from "./Transactions";
+import Profit from "./Profit";
+import Owners from "./Owners";
+import Documents from "./Documents";
+import CustomerAssignments from "./CustomerAssignments";
+import PaymentRequests from "./PaymentRequests";
+import PaymentApprovals from "./PaymentApprovals";
+import PaymentTransactions from "./PaymentTransactions";
+
 export default function TabContent({ session, language,dictionary }) {
   const [activeTab, setActiveTab] = useState("role");
   const [defaultLanguage, setDefaultLanguage] = useState("ko");
@@ -29,10 +39,36 @@ export default function TabContent({ session, language,dictionary }) {
         <li className={activeTab === "role" ? "uk-active" : ""}>
           <Role session={session} language={language} />
         </li>
+        <li className={activeTab === "staff" ? "uk-active" : ""}>
+          <Staff session={session} language={language} />
+        </li>
+        <li className={activeTab === "transactions" ? "uk-active" : ""}>
+          <Transactions session={session} language={language} />
+        </li>
+        <li className={activeTab === "profit" ? "uk-active" : ""}>
+          <Profit session={session} language={language} />
+        </li>
+        <li className={activeTab === "owners" ? "uk-active" : ""}>
+          <Owners session={session} language={language} />
+        </li>
+        <li className={activeTab === "documents" ? "uk-active" : ""}>
+          <Documents session={session} language={language} />
+        </li>
+        <li className={activeTab === "assignments" ? "uk-active" : ""}>
+          <CustomerAssignments session={session} language={language} />
+        </li>
+        <li className={activeTab === "payment-requests" ? "uk-active" : ""}>
+          <PaymentRequests session={session} language={language} />
+        </li>
+        <li className={activeTab === "payment-approvals" ? "uk-active" : ""}>
+          <PaymentApprovals session={session} language={language} />
+        </li>
+        <li className={activeTab === "payment-transactions" ? "uk-active" : ""}>
+          <PaymentTransactions session={session} language={language} />
+        </li>
         <li className={activeTab === "answer" ? "uk-active" : ""}>
           <Answer session={session} language={language} />
         </li>
-
         <li className={activeTab === "products" ? "uk-active" : ""}>
           <Products session={session} language={language} />
         </li>
