@@ -1,12 +1,10 @@
-import Hero from "@/components/hero";
-import ConnectSupabaseSteps from "@/components/tutorial/connect-supabase-steps";
-import SignUpUserSteps from "@/components/tutorial/sign-up-user-steps";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
+import MowinLanding from "@/components/mowin/MowinLanding";
 
-export default async function Index() {
-  return (
-    <>
-        <div></div>
-    </>
-  );
+export const metadata = {
+  title: "모두위너 · AI 모윈",
+  description: "유익한 정보와 유익한 서비스로 모두에게 이익을 — AI 모윈이 안내합니다.",
+};
+
+export default function Index() {
+  return <MowinLanding />;
 }

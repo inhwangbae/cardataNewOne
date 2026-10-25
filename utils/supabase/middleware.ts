@@ -40,10 +40,7 @@ export const updateSession = async (request: NextRequest) => {
     // This will refresh session if expired - required for Server Components
     // https://supabase.com/docs/guides/auth/server-side/nextjs
 
-    // New condition: Redirect to /sign-in if accessing the root path
-    if (request.nextUrl.pathname === "/") {
-      return NextResponse.redirect(new URL("/sign-in", request.url));
-    }
+    // 루트(/)는 AI 모윈 랜딩페이지 — 로그인 페이지로 리다이렉트하지 않음
 
     const user = await supabase.auth.getUser();
 
