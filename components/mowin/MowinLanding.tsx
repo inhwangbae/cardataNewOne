@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import MowinOrb from "./MowinOrb";
-import { FALLBACK, FAQS, Faq, GREETING, findFaq } from "./faq";
+import { FALLBACK, FAQS, Faq, FaqGroup, GREETING, GROUPS, findFaq } from "./faq";
 
 // space: 우주 속 희미한 구체 → waking: 밝아지며 백색 화면으로 → ready: AI 모윈 안내 시작
 type Phase = "space" | "waking" | "ready";
@@ -23,6 +23,7 @@ export default function MowinLanding() {
   const [reply, setReply] = useState<Message>({ from: "mowin", text: "" });
   const [typed, setTyped] = useState("");
   const [input, setInput] = useState("");
+  const [group, setGroup] = useState<FaqGroup>("moduwinner");
 
   const soundRef = useRef(soundOn);
   soundRef.current = soundOn;
@@ -119,6 +120,7 @@ export default function MowinLanding() {
 
   const answer = (faq: Faq | null, asked: string) => {
     setQuestion(asked);
+    if (faq) setGroup(faq.group);
     say(faq ? { from: "mowin", text: faq.answer, link: faq.link } : { from: "mowin", text: FALLBACK });
   };
 
@@ -209,7 +211,7 @@ export default function MowinLanding() {
       {/* AI 모윈 구체 */}
       <div
         className={`absolute left-1/2 -translate-x-1/2 transition-all [transition-duration:1800ms] [transition-timing-function:cubic-bezier(.6,0,.2,1)] ${
-          ready ? "top-[6%] h-[34dvh] w-[34dvh] max-w-[90vw] md:h-[40dvh] md:w-[40dvh]" : "top-1/2 h-[70vmin] w-[70vmin] -translate-y-1/2"
+          ready ? "top-[6%] h-[34dvh] w-[34dvh] max-w-[90vw] md:h-[36dvh] md:w-[36dvh]" : "top-1/2 h-[70vmin] w-[70vmin] -translate-y-1/2"
         }`}
       >
         <MowinOrb
@@ -242,7 +244,7 @@ export default function MowinLanding() {
           <p className="mt-1 text-xs text-slate-500">유익한 정보 · 유익한 서비스 · 모두의 이익</p>
         </div>
 
-        <div className="max-h-[30dvh] min-h-[96px] shrink-0 overflow-y-auto rounded-2xl border border-indigo-100 bg-white/80 p-4 shadow-[0_8px_30px_rgba(79,70,229,0.08)] backdrop-blur">
+        <div className="max-h-[24dvh] min-h-[96px] shrink-0 md:max-h-[30dvh] overflow-y-auto rounded-2xl border border-indigo-100 bg-white/80 p-4 shadow-[0_8px_30px_rgba(79,70,229,0.08)] backdrop-blur">
           {question && <p className="mb-2 text-right text-sm text-slate-500">“{question}”</p>}
           <p className="whitespace-pre-line text-[15px] leading-relaxed text-slate-800">
             {typed}
@@ -258,13 +260,30 @@ export default function MowinLanding() {
           )}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2">
-          {FAQS.map((f) => (
+        <div className="flex justify-center gap-1 rounded-full bg-slate-100 p-1 self-center" role="tablist">
+          {GROUPS.map((g) => (
+            <button
+              key={g.id}
+              type="button"
+              role="tab"
+              aria-selected={group === g.id}
+              onClick={() => setGroup(g.id)}
+              className={`whitespace-nowrap rounded-full px-4 py-1 text-xs transition md:text-sm ${
+                group === g.id ? "bg-white text-indigo-700 shadow-sm" : "text-slate-500 hover:text-slate-700"
+              }`}
+            >
+              {g.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:justify-center md:overflow-visible md:px-0 md:pb-0">
+          {FAQS.filter((f) => f.group === group).map((f) => (
             <button
               key={f.id}
               type="button"
               onClick={() => answer(f, f.question)}
-              className="rounded-full border border-indigo-100 bg-white px-3 py-1.5 text-xs text-indigo-700 transition hover:border-indigo-300 hover:bg-indigo-50 md:text-sm"
+              className="shrink-0 whitespace-nowrap rounded-full border border-indigo-100 bg-white px-3 py-1.5 text-xs text-indigo-700 transition hover:border-indigo-300 hover:bg-indigo-50 md:text-sm"
             >
               {f.question}
             </button>
